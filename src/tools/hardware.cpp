@@ -1,0 +1,65 @@
+#include "hardware.hpp"
+
+namespace hardware {
+HardWare::HardWare(){}
+HardWare::~HardWare(){}
+
+/* GetHardWareInformation
+* @brief: 获取硬件信息
+* @param: null
+* @return: null
+*/
+void HardWare::GetHardWareInformation() {}
+
+/* Monitor
+* @brief:  监控硬件实时信息
+* @param: null
+* @return: null
+*/
+void HardWare::Monitor() {}
+
+EthernetCard::EthernetCard() {}
+
+EthernetCard::~EthernetCard() {}
+
+CPU::CPU() : cpu_file_path_("/proc/cpuinfo"){}
+
+CPU::CPU(std::string cpu_file) {
+    cpu_file_path_ = cpu_file;
+}
+
+CPU::~CPU() 
+{
+
+}
+
+/* GetHardWareInformation
+* @brief: 获取CPU信息
+* @param: null
+* @return: null
+*/
+void CPU::GetHardWareInformation() 
+{
+    FILE *fp = fopen(cpu_file_path_.c_str(), "r");
+    if (fp == NULL)
+    {
+        std::cout << "ERROR: " << cpu_file_path_ << " open error" << std::endl;
+        return;
+    }
+
+    char tmp[1000];
+
+    std::cout << "============= cpu information ===========" << std::endl;
+    while (!feof(fp))
+    {
+        memset(tmp, sizeof(tmp), 0);
+        fgets(tmp, sizeof(tmp) - 1, fp);
+        printf("%s", tmp);
+    }
+
+    fclose(fp);
+    fp = NULL;
+}
+
+
+}
