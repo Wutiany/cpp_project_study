@@ -35,7 +35,7 @@ namespace hardware
         
 
 
-    }
+    };
 
 } // namespace hardware
 
