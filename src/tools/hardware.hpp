@@ -21,6 +21,7 @@ namespace hardware
             EthernetCard();
             ~EthernetCard();
             virtual void GetHardWareInformation() override;
+        private:
     };
 
     class CPU : public HardWare {
@@ -32,9 +33,6 @@ namespace hardware
         
         private:
             std::string cpu_file_path_;
-        
-
-
     };
 
 } // namespace hardware

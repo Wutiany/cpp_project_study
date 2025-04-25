@@ -1,5 +1,5 @@
 #include<iostream>
-#include "tools/hardware.hpp"
+#include "hardware.hpp"
 
 int main()
 {

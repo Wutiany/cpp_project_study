@@ -18,10 +18,6 @@ void HardWare::GetHardWareInformation() {}
 */
 void HardWare::Monitor() {}
 
-EthernetCard::EthernetCard() {}
-
-EthernetCard::~EthernetCard() {}
-
 CPU::CPU() : cpu_file_path_("/proc/cpuinfo"){}
 
 CPU::CPU(std::string cpu_file) {
@@ -61,5 +57,18 @@ void CPU::GetHardWareInformation()
     fp = NULL;
 }
 
+EthernetCard::EthernetCard() {}
+
+EthernetCard::~EthernetCard() {}
+
+/* GetHardWareInformation
+* @brief: 获取网卡信息
+* @param: null
+* @return: null
+*/
+void EthernetCard::GetHardWareInformation()
+{
+
+}
 
 }
