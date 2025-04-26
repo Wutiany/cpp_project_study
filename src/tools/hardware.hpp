@@ -5,6 +5,11 @@
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <sys/types.h>
+#include <ifaddrs.h>
+#include <netinet/in.h>
+#include <arpa/inet.h>
+
 
 namespace hardware
 {
@@ -22,6 +27,8 @@ namespace hardware
             ~EthernetCard();
             virtual void GetHardWareInformation() override;
         private:
+            ifaddrs* ifAddrStruct_;
+            
     };
 
     class CPU : public HardWare {

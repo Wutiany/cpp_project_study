@@ -57,7 +57,7 @@ void CPU::GetHardWareInformation()
     fp = NULL;
 }
 
-EthernetCard::EthernetCard() {}
+EthernetCard::EthernetCard() : ifAddrStruct_(NULL) {}
 
 EthernetCard::~EthernetCard() {}
 
@@ -68,7 +68,28 @@ EthernetCard::~EthernetCard() {}
 */
 void EthernetCard::GetHardWareInformation()
 {
+    void *tmpAddrPtr = nullptr;
 
+    getifaddrs(&ifAddrStruct_);
+
+    while (ifAddrStruct_ != NULL)
+    {   
+        // ipv4
+        if (ifAddrStruct_->ifa_addr->sa_family == AF_INET)
+        {
+            tmpAddrPtr = &((struct sockaddr_in*)ifAddrStruct_->ifa_addr)->sin_addr;
+            char addressBuffer[INET_ADDRSTRLEN] = {0};
+            inet_ntop(AF_INET, tmpAddrPtr, addressBuffer, INET_ADDRSTRLEN);
+            std::cout << ifAddrStruct_->ifa_name << "IP Address " << addressBuffer << std::endl;   
+        }
+        else if (ifAddrStruct_->ifa_addr->sa_family == AF_INET6)
+        {
+            tmpAddrPtr = &((struct sockaddr_in*)ifAddrStruct_->ifa_addr)->sin_addr;
+            char addressBuffer[INET6_ADDRSTRLEN] = {0};
+            inet_ntop(AF_INET6, tmpAddrPtr, addressBuffer, INET6_ADDRSTRLEN);
+            std::cout << ifAddrStruct_->ifa_name << "IP Address " << addressBuffer << std::endl;
+        }
+    }
 }
 
 }
