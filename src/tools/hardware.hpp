@@ -9,7 +9,8 @@
 #include <ifaddrs.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
-
+#include <cerrno>
+#include <cstring>
 
 namespace hardware
 {
@@ -27,7 +28,7 @@ namespace hardware
             ~EthernetCard();
             virtual void GetHardWareInformation() override;
         private:
-            ifaddrs* ifAddrStruct_;
+            struct ifaddrs* ifAddrStruct_;
             
     };
 

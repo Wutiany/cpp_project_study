@@ -70,7 +70,11 @@ void EthernetCard::GetHardWareInformation()
 {
     void *tmpAddrPtr = nullptr;
 
-    getifaddrs(&ifAddrStruct_);
+    if (getifaddrs(&ifAddrStruct_) == -1)
+    {
+        std::cout << "Failed get hardware info, Error code:  " << errno << std::endl;
+        std::cout << "Error message: " << strerror(errno) << std::endl;
+    }
 
     while (ifAddrStruct_ != NULL)
     {   
@@ -89,7 +93,10 @@ void EthernetCard::GetHardWareInformation()
             inet_ntop(AF_INET6, tmpAddrPtr, addressBuffer, INET6_ADDRSTRLEN);
             std::cout << ifAddrStruct_->ifa_name << "IP Address " << addressBuffer << std::endl;
         }
+        ifAddrStruct_ = ifAddrStruct_->ifa_next;
     }
+
+    freeifaddrs(ifAddrStruct_);
 }
 
 }
