@@ -78,6 +78,11 @@ void EthernetCard::GetHardWareInformation()
 
     while (ifAddrStruct_ != NULL)
     {   
+        //注意：CAN接口也是用socket,但是CAN没有IP地址,ifa_addr为空；这里要进行判断,否则会出现操作野指针的情况，导致Segmentation fault
+        if (ifAddrStruct_->ifa_addr == NULL)
+        {
+            return;
+        }
         // ipv4
         if (ifAddrStruct_->ifa_addr->sa_family == AF_INET)
         {
