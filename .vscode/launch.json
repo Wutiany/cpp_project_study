@@ -5,7 +5,7 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "main-gdb",
+            "name": "main",
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/bin/main",
