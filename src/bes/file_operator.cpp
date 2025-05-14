@@ -57,7 +57,8 @@ namespace bes
     */
     void FileBase::Print2Bin()
     {
-    // TODO: 将数据以二进制形式输出
+        // TODO: 将数据以二进制形式输出
+        
     }
 
     /* Print2Oct
@@ -68,6 +69,7 @@ namespace bes
     void FileBase::Print2Oct()
     {
         // TODO: 将数据以八进制形式输出
+
     }
 
     /* Print2Dec
@@ -77,7 +79,18 @@ namespace bes
     */
     void FileBase::Print2Dec()
     {
-        // TODO: 将数据以十进制输出
+        // 以十进制输出需要将数据进行转化
+        int32_t *data = nullptr;
+        data = reinterpret_cast<int32_t*>(buffer_.data());
+        for (int i = 0; i < file_size_ / 4; i++)
+        {
+            std::cout << std::dec << std::setw(10) << *data << " ";
+            if ((i + 1) % 16 == 0)
+            {
+                std::cout << std::endl;
+            }
+        }
+
     }
 
     /* Print2Hex
@@ -85,8 +98,14 @@ namespace bes
     */
     void FileBase::Print2Hex()
     {
-        // TODO: 将数据以十六进制输出
-
+        for (int i = 0; i < file_size_; i++)
+        {
+            std::cout << std::hex << std::setw(2) << std::setfill('0') << static_cast<unsigned char>(buffer_[i]) << " ";
+            if ((i + 1) % 16 == 0)
+            {
+                std::cout << std::endl;
+            }
+        } 
     }
     
 } // namespace bes

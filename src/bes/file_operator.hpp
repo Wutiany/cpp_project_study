@@ -7,6 +7,8 @@
 #include <string>
 #include <iterator>
 #include <cstring>
+#include <iomanip>
+
 #include "types.hpp"
 
 namespace bes {
@@ -21,7 +23,7 @@ namespace bes {
         virtual void Print2Dec();
         virtual void Print2Hex();
 
-        private:
+        public:
         std::string file_name_;
         std::ifstream file_;
         std::streamsize file_size_;
