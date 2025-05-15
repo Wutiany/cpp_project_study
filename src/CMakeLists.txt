@@ -6,10 +6,14 @@ add_subdirectory(bes)
 
 target_link_libraries(main
     PRIVATE
-    tools    
+    tools  
+    bes  
+    timer
 )
 
 target_include_directories(main
 PUBLIC
     tools
+    bes
+    ${CMAKE_SOURCE_DIR}/timer
 )
