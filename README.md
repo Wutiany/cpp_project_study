@@ -14,3 +14,12 @@ make all MODE=debug
 make all MODE=realse
 ```
 
+## X11 配置问题
+### 配置方法
+* [X11 配置方法](https://www.cnblogs.com/SkyXZ/p/18687026)
+ * 服务器配置 DISPLAY 的时候需要将 localhost 修改成本机的 ip
+* [VScode 配置调试方法](https://www.cnblogs.com/HeisenbergUncertainty/p/17629757.html)
+### Can't open display:0.0
+* 服务器 ping 不同本地电脑，关闭本地防火墙
+
+
