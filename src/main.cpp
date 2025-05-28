@@ -1,9 +1,10 @@
 #include<iostream>
 #include "hardware.hpp"
+#include "ui.hpp"
+
 
 int main()
 {
-    hardware::EthernetCard ethernetCard;
-    ethernetCard.GetHardWareInformation();
+
     return 0;
 }
