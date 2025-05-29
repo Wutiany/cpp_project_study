@@ -3,8 +3,9 @@
 #include "ui.hpp"
 
 
-int main()
+int main(int argc, char** argv)
 {
-
+    QApplication app(argc, argv);
+    ui::BesUI bes;
     return 0;
 }

@@ -2,10 +2,17 @@
 #define __UI_UI_HPP__
 
 #include <QApplication>
+#include <QMainWindow>
+#include <QPushButton>
 
-
-namespace qt_ui {
-    
+namespace ui {  
+    class BesUI : public QMainWindow {
+        public:
+        BesUI();
+        ~BesUI();
+        public:
+        QPushButton* button;
+    };
 }
 
 
