@@ -25,6 +25,12 @@ make all MODE=realse
 * [VScode 配置调试方法](https://www.cnblogs.com/HeisenbergUncertainty/p/17629757.html)
 ### Can't open display:0.0
 * 服务器 ping 不通本地电脑，关闭本地防火墙
-
+### 本地和服务器都无法显示qt程序
+``Warning: Ignoring XDG_SESSION_TYPE=wayland on Gnome. Use QT_QPA_PLATFORM=wayland to run on Wayland anyway.``
+* 在服务器配置中修改设置
+```shell
+sudo vim /etc/gdm3/custom.conf
+```
+ * 将其中的 #WaylandEnable=false 去掉 #，取消注释
 
 
