@@ -4,14 +4,27 @@
 #include <QApplication>
 #include <QMainWindow>
 #include <QPushButton>
+#include <QLayout>
 
 namespace ui {  
-    class BesUI : public QMainWindow {
+    class NetAssistUI : public QMainWindow
+    {
+        Q_OBJECT
         public:
-        BesUI();
-        ~BesUI();
+            NetAssistUI(QWidget* = nullptr);
+            virtual ~NetAssistUI();
+            void getLocalIP();
+
+        private:
+
         public:
-        QPushButton* button;
+            QVBoxLayout* NetSet_;           // 网络设置布局
+            QVBoxLayout* RecvAreaSet_;      // 接收区域设置布局
+            QVBoxLayout* SendAreaSet_;      // 发送区域设置布局
+            QVBoxLayout* NetDataRecv_;      // 网络数据接收布局
+
+            QPushButton* ConnectButton_;    // 连接按钮
+            QPushButton* SendButton_;       // 发送按钮
     };
 }
 

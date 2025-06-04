@@ -1,15 +1,23 @@
 #include "ui.hpp"
 
 namespace ui {
-    BesUI::BesUI() : QMainWindow()
-    {
-        button = new QPushButton("button");
-        button->show();
-    }
+NetAssistUI::NetAssistUI(QWidget* parant) : QMainWindow(parant)
+{
 
-    BesUI::~BesUI() 
-    {      
-        delete button;
-    }
+}
 
+NetAssistUI::~NetAssistUI()
+{
+
+}
+
+/* getLocalIP
+* @brief: 获取本地网卡ip
+* @param: null
+* @return: null
+*/
+void NetAssistUI::getLocalIP()
+{
+    
+}
 }
