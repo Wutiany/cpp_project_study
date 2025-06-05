@@ -2,9 +2,11 @@ add_library(ui "")
 
 target_sources(ui
 PRIVATE
-    ui.hpp
-PUBLIC
     ui.cpp
+    widget.cpp
+PUBLIC
+    ui.hpp
+    widget.hpp
 )
 
 # 设置搜索 qt 的路径

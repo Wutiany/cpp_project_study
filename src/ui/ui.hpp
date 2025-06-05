@@ -11,7 +11,7 @@ namespace ui {
     {
         Q_OBJECT
         public:
-            NetAssistUI(QWidget* = nullptr);
+            NetAssistUI(QWidget* parent = nullptr);
             virtual ~NetAssistUI();
             void getLocalIP();
 
