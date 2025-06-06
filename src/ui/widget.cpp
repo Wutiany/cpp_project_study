@@ -11,6 +11,70 @@ namespace ui {
         // 初始化其中的部件
         QVBoxLayout* layout = new QVBoxLayout(this);
 
+        protocol_type_label_ = new QLabel("(1) 协议类型");
+        local_ip_address_label_ = new QLabel("(2) 本地IP地址");
+        local_port_label_ = new QLabel("(3) 本地端口号");
 
+        protocol_type_combo_box_ = new QComboBox();
+        local_ip_address_line_edit_ = new QLineEdit();
+        local_port_edit_ = new QLineEdit();
+
+        protocol_type_combo_box_->addItem("UDP");
+        protocol_type_combo_box_->addItem("TCP Client");
+        protocol_type_combo_box_->addItem("TCP Server");
+
+        // TODO: 后续修改成图片
+        connect_button_ = new QPushButton("连接");
+
+
+        InitStyle();
+        get_local_ip_address_();
+        port_ = 8080;
+    }
+
+    NetSetWidget::~NetSetWidget()
+    {
+    }
+
+    /* get_local_ip_address_
+    * @brief: 获取本地ip地址
+    * @param: null
+    * @return: null
+    */
+    void NetSetWidget::get_local_ip_address_()
+    {
+        struct ifaddrs* interfaces = nullptr;
+        struct ifaddrs* temp_ip_addrs = nullptr;
+
+        if (getifaddrs(&interfaces) != -1)
+        {
+            std::cout << "get interfaces error" << std::endl;
+            return ;
+        }
+
+        for (temp_ip_addrs = interfaces; temp_ip_addrs != nullptr; temp_ip_addrs = temp_ip_addrs->ifa_next)
+        {
+            if ((temp_ip_addrs->ifa_addr != NULL) && (temp_ip_addrs->ifa_flags & IFF_UP) && (temp_ip_addrs->ifa_flags & IFF_RUNNING) && temp_ip_addrs->ifa_addr->sa_family == AF_INET)
+            {
+                char ip[INET_ADDRSTRLEN] = { 0 };
+                if (inet_ntop(AF_INET, &((struct sockaddr_in*)temp_ip_addrs->ifa_addr)->sin_addr, ip, sizeof(ip)))
+                {
+                    ip_address_.push_back(ip);
+                }
+            }
+        }
+        freeifaddrs(interfaces);
+
+        local_ip_address_ = ip_address_[0]; 
+    }
+
+    /* InitStyle
+    * @brief: 初始化网络设置窗口的风格(布局大小等)
+    * @param: null
+    * @return: null
+    */
+    void NetSetWidget::InitStyle()
+    {
+        
     }
 }
