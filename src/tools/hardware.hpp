@@ -12,7 +12,7 @@
 #include <cerrno>
 #include <cstring>
 
-namespace hardware
+namespace tools
 {
     class HardWare {
         public:

@@ -1,6 +1,6 @@
 #include "hardware.hpp"
 
-namespace hardware {
+namespace tools {
 HardWare::HardWare(){}
 HardWare::~HardWare(){}
 
