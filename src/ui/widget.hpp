@@ -21,12 +21,11 @@
 namespace ui {
     class NetSetWidget : public QWidget 
     {
-        Q_OBJECT
         public:
             NetSetWidget(QWidget* parent = nullptr);
             virtual ~NetSetWidget();
-            void get_local_ip_address_();
-            void InitStyle();
+            void get_local_ip_address();
+            void InitNetSetStyle(QVBoxLayout* layout);
 
         private:
             QLabel* protocol_type_label_;

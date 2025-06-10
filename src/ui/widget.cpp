@@ -3,7 +3,7 @@
 namespace ui {
     /* construct 
     * @brief: 用来初始化网络设置部分布局
-    * @param parent: 子布局
+    * @param parent: 父布局
     * @return: null
     */
     NetSetWidget::NetSetWidget(QWidget* parent) : QWidget(parent)
@@ -19,16 +19,11 @@ namespace ui {
         local_ip_address_line_edit_ = new QLineEdit();
         local_port_edit_ = new QLineEdit();
 
-        protocol_type_combo_box_->addItem("UDP");
-        protocol_type_combo_box_->addItem("TCP Client");
-        protocol_type_combo_box_->addItem("TCP Server");
-
         // TODO: 后续修改成图片
         connect_button_ = new QPushButton("连接");
 
-
-        InitStyle();
-        get_local_ip_address_();
+        InitNetSetStyle(layout);
+        get_local_ip_address();
         port_ = 8080;
     }
 
@@ -36,12 +31,12 @@ namespace ui {
     {
     }
 
-    /* get_local_ip_address_
+    /* get_local_ip_address
     * @brief: 获取本地ip地址
     * @param: null
     * @return: null
     */
-    void NetSetWidget::get_local_ip_address_()
+    void NetSetWidget::get_local_ip_address()
     {
         struct ifaddrs* interfaces = nullptr;
         struct ifaddrs* temp_ip_addrs = nullptr;
@@ -68,13 +63,33 @@ namespace ui {
         local_ip_address_ = ip_address_[0]; 
     }
 
-    /* InitStyle
+    /* InitNetSetStyle
     * @brief: 初始化网络设置窗口的风格(布局大小等)
-    * @param: null
+    * @param layout: 当前布局
     * @return: null
     */
-    void NetSetWidget::InitStyle()
+    void NetSetWidget::InitNetSetStyle(QVBoxLayout* layout)
     {
-        
+        // 初始化协议类型
+        protocol_type_combo_box_->addItem("UDP");
+        protocol_type_combo_box_->addItem("TCP Client");
+        protocol_type_combo_box_->addItem("TCP Server");
+
+        // 设置 ip edit 的掩码与验证
+        local_ip_address_line_edit_->setInputMask("255.255.255.255;_");
+
+        // TODO: validator
+
+
+        // 设置端口的验证
+        local_port_edit_->setInputMask("99999");
+
+        layout->addWidget(protocol_type_label_);
+        layout->addWidget(protocol_type_combo_box_);
+        layout->addWidget(local_ip_address_label_);
+        layout->addWidget(local_ip_address_line_edit_);
+        layout->addWidget(local_port_label_);
+        layout->addWidget(local_port_edit_);
+        layout->addWidget(connect_button_);
     }
 }

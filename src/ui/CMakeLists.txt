@@ -1,16 +1,21 @@
 add_library(ui "")
 
 target_sources(ui
-PRIVATE
+PRIVATE 
     ui.cpp
-    widget.cpp
+    widget.cpp 
 PUBLIC
     ui.hpp
     widget.hpp
 )
 
+target_link_directories(ui
+    PUBLIC
+    ${CMAKE_CURRENT_LIST_DIR}
+)
+
 # 设置搜索 qt 的路径
-set(CMAKE_PREFIX_PATH )
+set(CMAKE_PREFIX_PATH)
 find_package(Qt5 COMPONENTS Core Widgets REQUIRED)
 
 
