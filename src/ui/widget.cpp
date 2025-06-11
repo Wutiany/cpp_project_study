@@ -83,6 +83,7 @@ namespace ui {
 
         // 设置端口的验证
         local_port_edit_->setInputMask("99999");
+        local_port_edit_->setText("8080");
 
         layout->addWidget(protocol_type_label_);
         layout->addWidget(protocol_type_combo_box_);
@@ -91,5 +92,50 @@ namespace ui {
         layout->addWidget(local_port_label_);
         layout->addWidget(local_port_edit_);
         layout->addWidget(connect_button_);
+    }
+
+
+    RecvEareSetWidget::RecvEareSetWidget(QWidget* parent): QWidget(parent)
+    {
+        // 设置布局
+        QVBoxLayout* main_layout = new QVBoxLayout(this);
+
+        recv_to_file_cb_ = new QCheckBox("接收转向文件");
+        show_recv_time_cb_ = new QCheckBox("显示接收时间");
+        show_hex_data_cb_ = new QCheckBox("十六进制显示");
+        stop_recv_display_cb_ = new QCheckBox("暂停接收显示");
+
+        save_data_ = new QLabel("保存数据");
+        clean_display_ = new QLabel("清除显示");
+
+
+        InitRecvEareStyle(main_layout);
+    }
+
+    RecvEareSetWidget::~RecvEareSetWidget()
+    {
+
+    }
+
+    /* InitRecvEareStyle
+    * @brief: 初始化布局
+    * @param layout: 接收区设置布局
+    * @return: null
+    */
+    void RecvEareSetWidget::InitRecvEareStyle(QVBoxLayout* layout)
+    {
+        show_recv_time_cb_->setChecked(true);
+        show_hex_data_cb_->setChecked(true);
+
+        QHBoxLayout* label_layout = new QHBoxLayout();
+        label_layout->addWidget(save_data_);
+        label_layout->addWidget(clean_display_);
+
+        layout->addWidget(recv_to_file_cb_);
+        layout->addWidget(show_recv_time_cb_);
+        layout->addWidget(show_hex_data_cb_);
+        layout->addWidget(stop_recv_display_cb_);
+
+        layout->addLayout(label_layout);        
     }
 }

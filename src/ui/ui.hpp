@@ -9,22 +9,21 @@
 #include "widget.hpp"
 
 namespace ui {  
-class NetAssistUI : public NetSetWidget
+class NetAssistUI : public QWidget
 {
     public:
         NetAssistUI(QWidget* parent = nullptr);
         virtual ~NetAssistUI();
+        void InitLayout();
 
     private:
+        QHBoxLayout* main_layout_hb_;      // 主布局
+        QVBoxLayout* left_layout_vb_;      // 左侧布局
+        QVBoxLayout* right_layout_vb_;     // 右侧布局
 
-    public:
         NetSetWidget* net_set_widget_;     // 网络设置布局
-        QVBoxLayout* recv_erea_set_;      // 接收区域设置布局
-        QVBoxLayout* send_area_set_;      // 发送区域设置布局
-        QVBoxLayout* net_data_recv_;      // 网络数据接收布局
+    public:
 
-        QPushButton* connect_button_;    // 连接按钮
-        QPushButton* send_button_;       // 发送按钮
 };
 }
 
