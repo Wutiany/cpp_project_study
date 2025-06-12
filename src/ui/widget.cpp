@@ -138,4 +138,51 @@ namespace ui {
 
         layout->addLayout(label_layout);        
     }
+
+    SendEareSetWidget::SendEareSetWidget(QWidget* parent) : QWidget(parent)
+    {
+        QVBoxLayout* main_layout = new QVBoxLayout(this);
+
+        enable_source_file_data_ = new QCheckBox("启用文件数据源");
+        auto_send_overhead_bit_ = new QCheckBox("自动发送附加位");
+        auto_empty_after_send_final_ = new QCheckBox("发送完自动清空");
+        send_for_hex_data_ = new QCheckBox("按十六进制发送");
+        loop_sending_ = new QCheckBox("数据流循环发送");
+
+        sending_interval_l_ = new QLabel("发送间隔");
+        sending_interval_edit_ = new QLineEdit("1000");
+        ms_ = new QLabel("毫秒");
+
+
+        load_file_ = new QLabel("文件载入");
+        clear_input_ = new QLabel("清除输入");
+
+        InitSendEareStyle(main_layout);
+    }
+
+    SendEareSetWidget::~SendEareSetWidget()
+    {
+
+    }
+
+    /* InitSendEareStyle
+    * @brief: 初始化发送去设置布局
+    * @param layout: 主布局
+    * @return: null
+    */
+    void SendEareSetWidget::InitSendEareStyle(QVBoxLayout* layout)
+    {
+        QHBoxLayout* sending_interval_layout = new QHBoxLayout();
+        QHBoxLayout* label_layout = new QHBoxLayout();
+
+        sending_interval_layout->addWidget(sending_interval_l_);
+        sending_interval_layout->addWidget(sending_interval_edit_);
+        sending_interval_layout->addWidget(ms_);
+
+        label_layout->addWidget(load_file_);
+        label_layout->addWidget(clear_input_);
+
+        layout->addLayout(sending_interval_layout);
+        layout->addLayout(label_layout);
+    }
 }

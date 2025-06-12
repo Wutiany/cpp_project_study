@@ -47,8 +47,8 @@ class NetSetWidget : public QWidget
 class RecvEareSetWidget : public QWidget 
 {
     public:
-        RecvEareWidget(QWidget* parent = nullptr);
-        virtual ~RecvEareWidget();
+        RecvEareSetWidget(QWidget* parent = nullptr);
+        virtual ~RecvEareSetWidget();
         void InitRecvEareStyle(QVBoxLayout* layout);
 
     private:
@@ -59,6 +59,29 @@ class RecvEareSetWidget : public QWidget
 
         QLabel* save_data_;
         QLabel* clean_display_;
+};
+
+class SendEareSetWidget : public QWidget
+{
+    public:
+        SendEareSetWidget(QWidget* parent = nullptr);
+        virtual ~SendEareSetWidget();
+        void InitSendEareStyle(QVBoxLayout* layout);
+        
+
+    private:
+        QCheckBox* enable_source_file_data_;
+        QCheckBox* auto_send_overhead_bit_;         // 自动发送附加位
+        QCheckBox* auto_empty_after_send_final_;
+        QCheckBox* send_for_hex_data_;
+        QCheckBox* loop_sending_;
+
+        QLabel* sending_interval_l_;
+        QLineEdit* sending_interval_edit_;
+        QLabel* ms_;
+
+        QLabel* load_file_;
+        QLabel* clear_input_;
 };
 }
 

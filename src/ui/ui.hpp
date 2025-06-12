@@ -22,8 +22,11 @@ class NetAssistUI : public QWidget
         QVBoxLayout* right_layout_vb_;     // 右侧布局
 
         NetSetWidget* net_set_widget_;     // 网络设置布局
-    public:
+        RecvEareSetWidget* recv_eare_set_widget_;   // 接收区设置布局
+        SendEareSetWidget* send_eare_set_widget_;   // 接收区设置布局
 
+    public:
+        
 };
 }
 
