@@ -9,6 +9,7 @@
 #include <QLineEdit>
 #include <QVBoxLayout>
 #include <QCheckBox>
+#include <QTextEdit>
 
 #include <netinet/in.h>
 #include <arpa/inet.h>
@@ -82,6 +83,51 @@ class SendEareSetWidget : public QWidget
 
         QLabel* load_file_;
         QLabel* clear_input_;
+};
+
+class NetDataRecvWidget : public QWidget
+{
+    public:
+        NetDataRecvWidget(QWidget* parent = nullptr);
+        virtual ~NetDataRecvWidget();
+        void NetDataRecvStyle(QVBoxLayout* layout);
+
+    private:
+        QTextEdit* recv_data_eara_;
+};
+
+class NetDataSendWidget : public QWidget
+{
+    public:
+        NetDataSendWidget(QWidget* parent = nullptr);
+        virtual ~NetDataSendWidget();
+        void NetDataSendStyle(QHBoxLayout* layout);
+
+    private:
+        QTextEdit* send_data_eare_;
+        QPushButton* send_button_;
+};
+
+class DisplayInfoEareWidget : public QWidget
+{
+    public:
+        DisplayInfoEareWidget(QWidget* parent = nullptr);
+        virtual ~DisplayInfoEareWidget();
+        void DisplayInfoEareStyle(QHBoxLayout* layout);
+
+    private:
+        QLabel* display_info_;
+        QLabel* send_info_;
+        QLabel* recv_info_;
+
+        QPushButton* reset_count_button_;
+    
+    private:
+        std::string send_str_;
+        std::string recv_str_;
+        int send_count_;
+        int recv_count_;
+
 };
 }
 

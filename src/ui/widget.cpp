@@ -185,4 +185,88 @@ namespace ui {
         layout->addLayout(sending_interval_layout);
         layout->addLayout(label_layout);
     }
+
+    NetDataRecvWidget::NetDataRecvWidget(QWidget* parent) : QWidget(parent)
+    {
+        QVBoxLayout* main_layout = new QVBoxLayout(this);
+
+        recv_data_eara_ = new QTextEdit();
+
+        NetDataRecvStyle(main_layout);
+    }
+
+    NetDataRecvWidget::~NetDataRecvWidget()
+    {
+
+    }
+
+    /* NetDataRecvStyle
+    * @brief: 初始化网络数据接收去布局
+    * @param layout: 网络接收区布局
+    * @return: null
+    */
+    void NetDataRecvWidget::NetDataRecvStyle(QVBoxLayout* layout)
+    {
+        layout->addWidget(recv_data_eara_);
+    }
+
+    NetDataSendWidget::NetDataSendWidget(QWidget* parent) : QWidget(parent)
+    {
+        QHBoxLayout* main_layout = new QHBoxLayout(this);
+
+        send_data_eare_ = new QTextEdit();
+        send_button_ = new QPushButton("发送");
+
+        NetDataSendStyle(main_layout);
+    }
+
+    NetDataSendWidget::~NetDataSendWidget()
+    {
+
+    }
+
+    /* NetDataSendStyle
+    * @brief: 网络数据发送区初始化布局
+    * @param layout: 布局
+    * @return: null
+    */
+    void NetDataSendWidget::NetDataSendStyle(QHBoxLayout* layout)
+    {
+        layout->addWidget(send_data_eare_);
+        layout->addWidget(send_button_);
+    }
+
+    DisplayInfoEareWidget::DisplayInfoEareWidget(QWidget* parent) : 
+        QWidget(parent), send_str_("发送："), recv_str_("接收：")
+    {
+        QHBoxLayout* main_layout = new QHBoxLayout(this);
+
+        display_info_ = new QLabel("就绪！");
+        send_info_ = new QLabel("发送：0");
+        recv_info_ = new QLabel("接收：0");
+        reset_count_button_ = new QPushButton("复位计数");
+
+        recv_count_ = 0;
+        send_count_ = 0;
+
+        DisplayInfoEareStyle(main_layout);
+    }
+
+    DisplayInfoEareWidget::~DisplayInfoEareWidget()
+    {
+
+    }
+
+    /* DisplayInfoEareStyle
+    * @brief:   信息显示区布局
+    * @param layout: 布局
+    * @return: null
+    */
+    void DisplayInfoEareWidget::DisplayInfoEareStyle(QHBoxLayout* layout)
+    {
+        layout->addWidget(display_info_);
+        layout->addWidget(send_info_);
+        layout->addWidget(recv_info_);
+        layout->addWidget(reset_count_button_);
+    }
 }
