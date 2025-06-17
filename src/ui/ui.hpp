@@ -28,7 +28,7 @@ class NetAssistUI : public QWidget
         SendEareSetWidget* send_eare_set_widget_;   // 接收区设置布局
         NetDataRecvWidget* net_data_recv_widget_;   // 网络数据接收区
         NetDataSendWidget* net_data_send_widget_;   // 网络数据发送区
-        // TODO: 目标主机
+        TargetHostWidget* target_host_widget_;      // 目标主机信息
         DisplayInfoEareWidget* display_info_eare_widget_;   // 数据显示区
 
 

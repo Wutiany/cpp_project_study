@@ -129,6 +129,20 @@ class DisplayInfoEareWidget : public QWidget
         int recv_count_;
 
 };
+
+class TargetHostWidget : public QWidget
+{
+    public:
+        TargetHostWidget(QWidget* parent = nullptr);
+        virtual ~TargetHostWidget();
+        void TargetHostStyle(QHBoxLayout* layout);
+
+    private:
+        QLabel* target_host_l_;
+        QLineEdit* target_host_le_;
+        QLabel* target_port_l_;
+        QLineEdit* target_port_le_;
+};
 }
 
 

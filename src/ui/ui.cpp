@@ -9,8 +9,7 @@ NetAssistUI::NetAssistUI(QWidget* parent) : QWidget(parent)
     send_eare_set_widget_ = new SendEareSetWidget();
     net_data_recv_widget_ = new NetDataRecvWidget();
     net_data_send_widget_ = new NetDataSendWidget();
-    // TODO: 目标主机
-
+    target_host_widget_ = new TargetHostWidget();
     display_info_eare_widget_ = new DisplayInfoEareWidget();
     
 
@@ -34,6 +33,7 @@ void NetAssistUI::InitLayout()
     left_layout_vb_->addWidget(send_eare_set_widget_);
 
     right_layout_vb_->addWidget(net_data_recv_widget_);
+    right_layout_vb_->addWidget(target_host_widget_);
     right_layout_vb_->addWidget(net_data_send_widget_);
 
     centre_layout_hb_->addLayout(left_layout_vb_);
@@ -43,6 +43,8 @@ void NetAssistUI::InitLayout()
 
     main_layout_vb_->addLayout(centre_layout_hb_);
     main_layout_vb_->addLayout(buttom_layout_vb_);
+
+    target_host_widget_->show();
 
     this->setLayout(main_layout_vb_);
 }

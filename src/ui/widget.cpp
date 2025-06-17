@@ -92,6 +92,15 @@ namespace ui {
         layout->addWidget(local_port_label_);
         layout->addWidget(local_port_edit_);
         layout->addWidget(connect_button_);
+
+        // 初始化组件大小
+        protocol_type_label_->setFixedSize(130, 20);
+        protocol_type_combo_box_->setFixedSize(130, 20);
+        local_ip_address_label_->setFixedSize(130, 20);
+        local_ip_address_line_edit_->setFixedSize(130, 20);
+        local_port_label_->setFixedSize(130, 20);
+        local_port_edit_->setFixedSize(130, 20);
+        connect_button_->setFixedSize(130, 30);
     }
 
 
@@ -128,13 +137,22 @@ namespace ui {
         show_hex_data_cb_->setChecked(true);
 
         QHBoxLayout* label_layout = new QHBoxLayout();
-        label_layout->addWidget(save_data_);
-        label_layout->addWidget(clean_display_);
+        label_layout->addWidget(save_data_, 0, Qt::AlignLeft);
+        label_layout->addWidget(clean_display_, 0, Qt::AlignRight);
 
         layout->addWidget(recv_to_file_cb_);
         layout->addWidget(show_recv_time_cb_);
         layout->addWidget(show_hex_data_cb_);
         layout->addWidget(stop_recv_display_cb_);
+
+        // 设置组件大小
+        recv_to_file_cb_->setFixedSize(130, 20);
+        show_recv_time_cb_->setFixedSize(130, 20);
+        show_hex_data_cb_->setFixedSize(130, 20);
+        stop_recv_display_cb_->setFixedSize(130, 20);
+
+        save_data_->setFixedSize(70, 20);
+        clean_display_->setFixedSize(70, 20);
 
         layout->addLayout(label_layout);        
     }
@@ -178,9 +196,29 @@ namespace ui {
         sending_interval_layout->addWidget(sending_interval_l_);
         sending_interval_layout->addWidget(sending_interval_edit_);
         sending_interval_layout->addWidget(ms_);
+        
+        label_layout->addWidget(load_file_, 0, Qt::AlignLeft);
+        label_layout->addWidget(clear_input_, 0, Qt::AlignRight);
 
-        label_layout->addWidget(load_file_);
-        label_layout->addWidget(clear_input_);
+        layout->addWidget(enable_source_file_data_);
+        layout->addWidget(auto_send_overhead_bit_);
+        layout->addWidget(auto_empty_after_send_final_);
+        layout->addWidget(send_for_hex_data_);
+        layout->addWidget(loop_sending_);
+
+        // 设置组件大小
+        enable_source_file_data_->setFixedSize(130, 20);
+        auto_send_overhead_bit_->setFixedSize(130, 20);
+        auto_empty_after_send_final_->setFixedSize(130, 20);
+        send_for_hex_data_->setFixedSize(130, 20);
+        loop_sending_->setFixedSize(130, 20);
+
+        load_file_->setFixedSize(70, 20);
+        clear_input_->setFixedSize(70, 20);
+
+        sending_interval_l_->setFixedSize(60, 20);
+        sending_interval_edit_->setFixedSize(40, 20);
+        ms_->setFixedSize(40, 20);
 
         layout->addLayout(sending_interval_layout);
         layout->addLayout(label_layout);
@@ -208,6 +246,8 @@ namespace ui {
     void NetDataRecvWidget::NetDataRecvStyle(QVBoxLayout* layout)
     {
         layout->addWidget(recv_data_eara_);
+        recv_data_eara_->setMinimumSize(450, 450);
+
     }
 
     NetDataSendWidget::NetDataSendWidget(QWidget* parent) : QWidget(parent)
@@ -234,6 +274,10 @@ namespace ui {
     {
         layout->addWidget(send_data_eare_);
         layout->addWidget(send_button_);
+
+        send_data_eare_->setFixedHeight(70);
+        send_data_eare_->setMinimumWidth(370);
+        send_button_->setFixedSize(80, 70);
     }
 
     DisplayInfoEareWidget::DisplayInfoEareWidget(QWidget* parent) : 
@@ -268,5 +312,33 @@ namespace ui {
         layout->addWidget(send_info_);
         layout->addWidget(recv_info_);
         layout->addWidget(reset_count_button_);
+    }
+
+    TargetHostWidget::TargetHostWidget(QWidget* parent) : QWidget(parent)
+    {
+        QHBoxLayout* main_layout = new QHBoxLayout(this);
+
+        target_host_l_ = new QLabel("目标主机：");
+        target_host_le_ = new QLineEdit();
+        target_port_l_ = new QLabel("目标端口：");
+        target_port_le_ = new QLineEdit();
+
+        TargetHostStyle(main_layout);
+    }
+
+    TargetHostWidget::~TargetHostWidget()
+    {}
+
+    /* TargetHostStyle
+    * @brief: 初始化目标主机信息
+    * @param layout: 布局
+    * @return: null
+    */
+    void TargetHostWidget::TargetHostStyle(QHBoxLayout* layout)
+    {
+        layout->addWidget(target_host_l_);
+        layout->addWidget(target_host_le_);
+        layout->addWidget(target_port_l_);
+        layout->addWidget(target_port_le_);
     }
 }
