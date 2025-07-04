@@ -48,7 +48,7 @@ void NetAssistUI::InitLayout()
     main_layout_vb_->addLayout(centre_layout_hb_);
     main_layout_vb_->addLayout(buttom_layout_vb_);
 
-    target_host_widget_->show();
+    target_host_widget_->hide();
 
     this->setLayout(main_layout_vb_);
 

@@ -43,6 +43,9 @@ class NetSetWidget : public QWidget
         std::vector<std::string> ip_address_;
         std::string local_ip_address_;
         uint32_t port_;
+
+    private slots:
+        void get_input_ip_address();
 };
 
 class RecvEareSetWidget : public QWidget 

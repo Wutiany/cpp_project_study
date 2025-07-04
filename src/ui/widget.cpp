@@ -24,6 +24,9 @@ namespace ui {
 
         InitNetSetStyle(layout);
         get_local_ip_address();
+
+        connect(local_ip_address_line_edit_, &QLineEdit::editingFinished, this, &NetSetWidget::get_input_ip_address);
+
         port_ = 8080;
     }
 
@@ -79,7 +82,7 @@ namespace ui {
         protocol_type_combo_box_->addItem("TCP Server");
 
         // 设置 ip edit 的掩码与验证
-        local_ip_address_line_edit_->setInputMask("255.255.255.255;_");
+        local_ip_address_line_edit_->setInputMask("000.000.000.000;_");
 
         // TODO: validator
 
@@ -109,6 +112,17 @@ namespace ui {
         layout->setSpacing(0);
     }
 
+    /* get_input_ip_address
+    * @brief: 槽函数，获取输入的ip地址
+    * @param: null
+    * @return: null
+    */
+    void NetSetWidget::get_input_ip_address()
+    {
+        QString ip_text = local_ip_address_line_edit_->text();
+        
+
+    }
 
     RecvEareSetWidget::RecvEareSetWidget(QWidget* parent): QWidget(parent)
     {
