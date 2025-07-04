@@ -24,6 +24,9 @@ namespace ui {
 
         InitNetSetStyle(layout);
         get_local_ip_address();
+
+        connect(local_ip_address_line_edit_, &QLineEdit::editingFinished, this, &NetSetWidget::get_input_ip_address);
+
         port_ = 8080;
     }
 
@@ -70,13 +73,16 @@ namespace ui {
     */
     void NetSetWidget::InitNetSetStyle(QVBoxLayout* layout)
     {
+        this->setFixedSize(160, 200);
+        this->setContentsMargins(0, 0, 0, 0);
+
         // 初始化协议类型
         protocol_type_combo_box_->addItem("UDP");
         protocol_type_combo_box_->addItem("TCP Client");
         protocol_type_combo_box_->addItem("TCP Server");
 
         // 设置 ip edit 的掩码与验证
-        local_ip_address_line_edit_->setInputMask("255.255.255.255;_");
+        local_ip_address_line_edit_->setInputMask("000.000.000.000;_");
 
         // TODO: validator
 
@@ -101,8 +107,22 @@ namespace ui {
         local_port_label_->setFixedSize(130, 20);
         local_port_edit_->setFixedSize(130, 20);
         connect_button_->setFixedSize(130, 30);
+
+        layout->setContentsMargins(0, 0, 0, 0);
+        layout->setSpacing(0);
     }
 
+    /* get_input_ip_address
+    * @brief: 槽函数，获取输入的ip地址
+    * @param: null
+    * @return: null
+    */
+    void NetSetWidget::get_input_ip_address()
+    {
+        QString ip_text = local_ip_address_line_edit_->text();
+        
+
+    }
 
     RecvEareSetWidget::RecvEareSetWidget(QWidget* parent): QWidget(parent)
     {
@@ -133,6 +153,9 @@ namespace ui {
     */
     void RecvEareSetWidget::InitRecvEareStyle(QVBoxLayout* layout)
     {
+        this->setFixedSize(160, 150);
+        this->setContentsMargins(0, 0, 0, 0);
+
         show_recv_time_cb_->setChecked(true);
         show_hex_data_cb_->setChecked(true);
 
@@ -154,7 +177,10 @@ namespace ui {
         save_data_->setFixedSize(70, 20);
         clean_display_->setFixedSize(70, 20);
 
-        layout->addLayout(label_layout);        
+        layout->addLayout(label_layout); 
+
+        layout->setContentsMargins(0, 0, 0, 0);
+        layout->setSpacing(0);       
     }
 
     SendEareSetWidget::SendEareSetWidget(QWidget* parent) : QWidget(parent)
@@ -190,6 +216,9 @@ namespace ui {
     */
     void SendEareSetWidget::InitSendEareStyle(QVBoxLayout* layout)
     {
+        this->setFixedSize(160, 200);
+        this->setContentsMargins(0, 0, 0, 0);
+
         QHBoxLayout* sending_interval_layout = new QHBoxLayout();
         QHBoxLayout* label_layout = new QHBoxLayout();
 
@@ -222,8 +251,15 @@ namespace ui {
 
         layout->addLayout(sending_interval_layout);
         layout->addLayout(label_layout);
+        
+        sending_interval_layout->setContentsMargins(0, 0, 0, 0);
+        sending_interval_layout->setSpacing(0);
+        label_layout->setContentsMargins(0, 0, 0, 0);
+        label_layout->setSpacing(0);
+        layout->setContentsMargins(0, 0, 0, 0);
+        layout->setSpacing(0);
     }
-
+    
     NetDataRecvWidget::NetDataRecvWidget(QWidget* parent) : QWidget(parent)
     {
         QVBoxLayout* main_layout = new QVBoxLayout(this);
@@ -245,8 +281,15 @@ namespace ui {
     */
     void NetDataRecvWidget::NetDataRecvStyle(QVBoxLayout* layout)
     {
+        this->setContentsMargins(0, 0, 0, 0);
+
         layout->addWidget(recv_data_eara_);
-        recv_data_eara_->setMinimumSize(450, 450);
+        recv_data_eara_->setMinimumHeight(300);
+        recv_data_eara_->setMinimumWidth(550);
+        recv_data_eara_->resize(550, 450);
+
+        layout->setContentsMargins(0, 0, 0, 0);
+        layout->setSpacing(0);
 
     }
 
@@ -272,12 +315,18 @@ namespace ui {
     */
     void NetDataSendWidget::NetDataSendStyle(QHBoxLayout* layout)
     {
+        this->setFixedHeight(130);
+        this->setContentsMargins(0, 0, 0, 0);
+
         layout->addWidget(send_data_eare_);
         layout->addWidget(send_button_);
 
         send_data_eare_->setFixedHeight(70);
         send_data_eare_->setMinimumWidth(370);
         send_button_->setFixedSize(80, 70);
+
+        layout->setContentsMargins(0, 0, 0, 0);
+        layout->setSpacing(0);
     }
 
     DisplayInfoEareWidget::DisplayInfoEareWidget(QWidget* parent) : 
@@ -308,10 +357,23 @@ namespace ui {
     */
     void DisplayInfoEareWidget::DisplayInfoEareStyle(QHBoxLayout* layout)
     {
-        layout->addWidget(display_info_);
+        this->setFixedHeight(30);
+        this->setContentsMargins(0, 0, 0, 0);
+
+        layout->addWidget(display_info_, 1); // 设置拉伸因子
         layout->addWidget(send_info_);
         layout->addWidget(recv_info_);
         layout->addWidget(reset_count_button_);
+
+        send_info_->setFixedSize(70, 20);
+        recv_info_->setFixedSize(70, 20);
+        reset_count_button_->setFixedSize(50,20);
+
+        layout->setAlignment(display_info_, Qt::AlignLeft);
+        layout->setAlignment(Qt::AlignRight);
+
+        layout->setContentsMargins(0, 0, 0, 0);
+        layout->setSpacing(0);
     }
 
     TargetHostWidget::TargetHostWidget(QWidget* parent) : QWidget(parent)
@@ -336,9 +398,29 @@ namespace ui {
     */
     void TargetHostWidget::TargetHostStyle(QHBoxLayout* layout)
     {
+        this->setFixedHeight(30);
+        this->setContentsMargins(0, 0, 0, 0);
+
         layout->addWidget(target_host_l_);
         layout->addWidget(target_host_le_);
         layout->addWidget(target_port_l_);
         layout->addWidget(target_port_le_);
+
+        target_host_le_->setInputMask("255.255.255.255;_");
+
+        // TODO: validation 验证输入
+
+        target_port_le_->setInputMask("99999");
+        target_port_le_->setText("8080");
+
+        target_host_l_->setFixedSize(65, 20);
+        target_host_le_->setFixedSize(130, 20);
+        target_port_l_->setFixedSize(65, 20);
+        target_port_le_->setFixedSize(90, 20);
+
+        layout->setAlignment(Qt::AlignLeft);
+
+        layout->setContentsMargins(0, 0, 0, 0);
+        layout->setSpacing(0);
     }
 }

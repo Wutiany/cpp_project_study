@@ -32,9 +32,13 @@ void NetAssistUI::InitLayout()
     left_layout_vb_->addWidget(recv_eare_set_widget_);
     left_layout_vb_->addWidget(send_eare_set_widget_);
 
-    right_layout_vb_->addWidget(net_data_recv_widget_);
+    right_layout_vb_->addWidget(net_data_recv_widget_, 1);
     right_layout_vb_->addWidget(target_host_widget_);
     right_layout_vb_->addWidget(net_data_send_widget_);
+
+    // 右侧布局调整排列，网络数据接收区在上面，其余的在下面
+    right_layout_vb_->setAlignment(net_data_recv_widget_, Qt::AlignTop);
+    right_layout_vb_->setAlignment(Qt::AlignBottom);
 
     centre_layout_hb_->addLayout(left_layout_vb_);
     centre_layout_hb_->addLayout(right_layout_vb_);
@@ -44,9 +48,22 @@ void NetAssistUI::InitLayout()
     main_layout_vb_->addLayout(centre_layout_hb_);
     main_layout_vb_->addLayout(buttom_layout_vb_);
 
-    target_host_widget_->show();
+    target_host_widget_->hide();
 
     this->setLayout(main_layout_vb_);
+
+    
+    left_layout_vb_->setContentsMargins(10, 10, 0, 10);
+    left_layout_vb_->setSpacing(2);
+    right_layout_vb_->setContentsMargins(0, 10, 10, 10);
+    right_layout_vb_->setSpacing(2);
+    centre_layout_hb_->setContentsMargins(0, 0, 0, 0);
+    centre_layout_hb_->setSpacing(2);
+    buttom_layout_vb_->setContentsMargins(10, 0, 10, 10);
+    buttom_layout_vb_->setSpacing(2);
+    main_layout_vb_->setContentsMargins(0, 0, 0, 0);
+    main_layout_vb_->setSpacing(2);
+
 }
 
 }
