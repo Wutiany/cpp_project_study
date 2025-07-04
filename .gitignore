@@ -34,3 +34,7 @@
 # bin directory
 /build/*
 /bin/*
+
+# setting
+.vscode/*
+
