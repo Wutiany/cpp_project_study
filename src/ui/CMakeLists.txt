@@ -7,6 +7,7 @@ PRIVATE
 PUBLIC
     ui.hpp
     widget.hpp
+    ui_common.hpp
 )
 
 target_link_directories(ui

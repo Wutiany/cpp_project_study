@@ -3,14 +3,12 @@
 #include "ui.hpp"
 #include "widget.hpp"
 #include "network.hpp"
-#include "signals.hpp"
 
 using namespace ui;
-using namespace signal;
 
 int main(int argc, char** argv)
 {
-#if 0 // netassit
+#if 1 // netassit
     QApplication app(argc, argv);
 
     NetAssistUI* net_assit_ui = new NetAssistUI();

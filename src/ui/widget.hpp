@@ -21,6 +21,7 @@
 #include <string>
 
 namespace ui {
+
 class NetSetWidget : public QWidget 
 {
     public:
@@ -43,6 +44,7 @@ class NetSetWidget : public QWidget
         std::vector<std::string> ip_address_;
         std::string local_ip_address_;
         uint32_t port_;
+        uint32_t protocol_type_;
 
     private slots:
         void get_input_ip_address();
