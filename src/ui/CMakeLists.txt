@@ -29,3 +29,8 @@ target_link_libraries(ui
     Qt5::Core
 )
 
+target_include_directories(ui
+    PUBLIC
+    ${CMAKE_SOURCE_DIR}/include
+)
+

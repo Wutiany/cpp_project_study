@@ -21,4 +21,5 @@ PUBLIC
     ui
     signals
     ${CMAKE_SOURCE_DIR}/timer
+    ${CMAKE_SOURCE_DIR}/spdlog
 )

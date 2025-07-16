@@ -20,6 +20,8 @@
 #include <vector>
 #include <string>
 
+#include "spdlog/spdlog.h"
+
 namespace ui {
 
 class NetSetWidget : public QWidget 
