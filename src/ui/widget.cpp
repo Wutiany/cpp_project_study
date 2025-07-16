@@ -120,7 +120,7 @@ namespace ui {
     void NetSetWidget::get_input_ip_address()
     {
         QString ip_text = local_ip_address_line_edit_->text();
-        
+        spdlog::info("ip: {}", ip_text.toStdString());
 
     }
 
