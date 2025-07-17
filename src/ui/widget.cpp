@@ -26,8 +26,13 @@ namespace ui {
         get_local_ip_address();
 
         connect(local_ip_address_line_edit_, &QLineEdit::editingFinished, this, &NetSetWidget::get_input_ip_address);
+        connect(protocol_type_combo_box_, QOverload<int>::of(&QComboBox::currentIndexChanged), this, &NetSetWidget::get_protocol);
+        connect(local_port_edit_, &QLineEdit::editingFinished, this, &NetSetWidget::get_port);
 
+        protocol_type_ = static_cast<int>(ProtocolType::UDP);
         port_ = 8080;
+
+        spdlog::info("protocol type: {0}, port: {1}", protocol_type_, port_);
     }
 
     NetSetWidget::~NetSetWidget()
@@ -46,7 +51,7 @@ namespace ui {
 
         if (getifaddrs(&interfaces) != -1)
         {
-            std::cout << "get interfaces error" << std::endl;
+            spdlog::error("get local ip address error!");
             return ;
         }
 
@@ -119,10 +124,56 @@ namespace ui {
     */
     void NetSetWidget::get_input_ip_address()
     {
-        QString ip_text = local_ip_address_line_edit_->text();
-        spdlog::info("ip: {}", ip_text.toStdString());
-
+        if (this == nullptr)
+            return;
+        QString ip_text = this->local_ip_address_line_edit_->text();
+        spdlog::info("get ip address: {}", ip_text.toStdString());
     }
+
+    /* get_protocol
+    * @brief: 槽函数，用来获取协议类型
+    * @param index[in]: combox的索引
+    * @return: null
+    */
+    void NetSetWidget::get_protocol(int index)
+    {
+        if (this == nullptr)
+            return;
+
+        switch (index)
+        {
+        case 0:
+            this->protocol_type_ = static_cast<int>(ProtocolType::UDP);
+            break;
+        case 1: 
+            this->protocol_type_ = static_cast<int>(ProtocolType::TCP_CLIENT);
+            break;
+        case 2:
+            this->protocol_type_ = static_cast<int>(ProtocolType::TCP_SERVER);
+        default:
+            break;
+        }
+        
+        spdlog::info("get protocol: {}", this->protocol_type_);
+    }
+
+    /* get_port
+    * @brief: 槽函数，用来获取修改的端口号
+    * @param: null
+    * @return: null
+    */
+    void NetSetWidget::get_port()
+    {
+        // TODO: 五位全输入完才能触发信号进入这个槽
+        if (this == nullptr)
+            return;
+        
+        this->port_ = this->local_port_edit_->text().toInt();
+
+        spdlog::info("get port: {}", this->port_);
+    }
+
+    
 
     RecvEareSetWidget::RecvEareSetWidget(QWidget* parent): QWidget(parent)
     {

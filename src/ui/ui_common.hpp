@@ -4,7 +4,7 @@
 #include <stdio.h>
 
 namespace ui {
-enum class ProtocolType 
+typedef enum class ProtocolType 
 {
     UDP = 0,
     TCP_CLIENT = 1,
