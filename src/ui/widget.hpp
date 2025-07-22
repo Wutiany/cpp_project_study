@@ -10,15 +10,18 @@
 #include <QVBoxLayout>
 #include <QCheckBox>
 #include <QTextEdit>
+#include <QValidator>
 
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include <ifaddrs.h>
 #include <net/if.h>
+#include <sys/socket.h>
+#include <string>
+#include <error.h>
 
 #include <iostream>
 #include <vector>
-#include <string>
 
 #include "spdlog/spdlog.h"
 
@@ -47,13 +50,17 @@ class NetSetWidget : public QWidget
 
         std::vector<std::string> ip_address_;
         std::string local_ip_address_;
-        uint32_t port_;
+        uint16_t port_;
         int protocol_type_;
+
+        bool connect_status_;
+        int sockfd_;            // linux下网络API
 
     private slots:
         void get_input_ip_address();
         void get_protocol(int index);
         void get_port();
+        void connection_localhost();
 
 };
 

@@ -28,9 +28,11 @@ namespace ui {
         connect(local_ip_address_line_edit_, &QLineEdit::editingFinished, this, &NetSetWidget::get_input_ip_address);
         connect(protocol_type_combo_box_, QOverload<int>::of(&QComboBox::currentIndexChanged), this, &NetSetWidget::get_protocol);
         connect(local_port_edit_, &QLineEdit::editingFinished, this, &NetSetWidget::get_port);
-
+        
         protocol_type_ = static_cast<int>(ProtocolType::UDP);
         port_ = 8080;
+
+        connect_status_ = false;
 
         spdlog::info("protocol type: {0}, port: {1}", protocol_type_, port_);
     }
@@ -89,11 +91,11 @@ namespace ui {
         // 设置 ip edit 的掩码与验证
         local_ip_address_line_edit_->setInputMask("000.000.000.000;_");
 
-        // TODO: validator
-
+        // TODO: ip and port validator
+        QValidator* port_validator = new QIntValidator(0, 99999, this);
 
         // 设置端口的验证
-        local_port_edit_->setInputMask("99999");
+        local_port_edit_->setValidator(port_validator);
         local_port_edit_->setText("8080");
 
         layout->addWidget(protocol_type_label_);
@@ -173,7 +175,61 @@ namespace ui {
         spdlog::info("get port: {}", this->port_);
     }
 
-    
+    /* connection_localhost
+    * @brief: 连接socket监听本地ip
+    * @param: null
+    * @return: null
+    */
+    void NetSetWidget::connection_localhost()
+    {
+        if (this == nullptr)
+            return;
+
+        // 获取ip和port
+        std::string ip = this->local_ip_address_;
+        uint16_t port = this->port_;
+
+        spdlog::info("connect locahost: {1}, port: {2}", ip, port);
+
+        struct sockaddr_in server_addr;
+
+        switch (protocol_type_)
+        {
+        case static_cast<int>(ProtocolType::UDP):
+            if ((sockfd_ = socket(AF_INET, SOCK_DGRAM, 0)) < 0)
+            {
+                spdlog::error("create socket error!");
+                return;
+            }
+            server_addr.sin_family = AF_INET;
+            server_addr.sin_addr.s_addr = INADDR_ANY;
+            server_addr.sin_port = htons(port);
+            
+            if (bind(sockfd_, (const struct sockaddr*)&server_addr, sizeof(server_addr)) < 0)
+            {
+                if (errno == EADDRINUSE)
+                    spdlog::error("Port is already in use.");
+                else if (errno == EACCES)
+                    spdlog::error("Permission denied.");
+                else    
+                    spdlog::error("Bind failed with error: {}", strerror(errno));
+                ::close(sockfd_);
+                return;
+            }
+            this->connect_status_ = true;
+            break;
+        case static_cast<int>(ProtocolType::TCP_CLIENT):
+            break;
+
+        case static_cast<int>(ProtocolType::TCP_SERVER):
+            break;
+        default:
+            break;
+        }
+
+        // 连接成功后设置button
+        this->connect_button_->setText("断开");
+    }
 
     RecvEareSetWidget::RecvEareSetWidget(QWidget* parent): QWidget(parent)
     {
@@ -459,9 +515,10 @@ namespace ui {
 
         target_host_le_->setInputMask("255.255.255.255;_");
 
-        // TODO: validation 验证输入
+        // TODO: ip and port validation
+        QValidator* port_validator = new QIntValidator(0, 99999, this);
 
-        target_port_le_->setInputMask("99999");
+        target_port_le_->setValidator(port_validator);
         target_port_le_->setText("8080");
 
         target_host_l_->setFixedSize(65, 20);

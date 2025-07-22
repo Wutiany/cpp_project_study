@@ -59,6 +59,7 @@
         "type_traits": "cpp",
         "typeinfo": "cpp",
         "variant": "cpp",
-        "random": "cpp"
+        "random": "cpp",
+        "qcombobox": "cpp"
     }
 }
