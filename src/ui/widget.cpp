@@ -28,7 +28,8 @@ namespace ui {
         connect(local_ip_address_line_edit_, &QLineEdit::editingFinished, this, &NetSetWidget::get_input_ip_address);
         connect(protocol_type_combo_box_, QOverload<int>::of(&QComboBox::currentIndexChanged), this, &NetSetWidget::get_protocol);
         connect(local_port_edit_, &QLineEdit::editingFinished, this, &NetSetWidget::get_port);
-        
+        connect(connect_button_, &QPushButton::clicked, this, &NetSetWidget::connection_localhost);
+
         protocol_type_ = static_cast<int>(ProtocolType::UDP);
         port_ = 8080;
 
@@ -185,11 +186,19 @@ namespace ui {
         if (this == nullptr)
             return;
 
-        // 获取ip和port
-        std::string ip = this->local_ip_address_;
-        uint16_t port = this->port_;
+        if (this->connect_status_)
+        {
+            ::close(sockfd_);
+            this->connect_button_->setText("连接");
+            this->connect_status_ = false;
+            return;
+        }
 
-        spdlog::info("connect locahost: {1}, port: {2}", ip, port);
+        // 获取ip和port
+        std::string ip = this->local_ip_address_line_edit_->text().toStdString();
+        uint16_t port = this->local_port_edit_->text().toInt();
+
+        spdlog::info("connect locahost: {0}, port: {1}", ip, port);
 
         struct sockaddr_in server_addr;
 
@@ -243,12 +252,62 @@ namespace ui {
 
         save_data_ = new QLabel("保存数据");
         clean_display_ = new QLabel("清除显示");
-
-
+        
         InitRecvEareStyle(main_layout);
+
+        // 信号与槽
+        connect(recv_to_file_cb_, &QCheckBox::stateChanged, this,&RecvEareSetWidget::recv_to_file_set);
+        connect(show_recv_time_cb_, &QCheckBox::stateChanged, this, &RecvEareSetWidget::show_time_set);
+        connect(show_hex_data_cb_, &QCheckBox::stateChanged, this, &RecvEareSetWidget::display_as_hex_set);
+        connect(stop_recv_display_cb_, &QCheckBox::stateChanged, this, &RecvEareSetWidget::stop_display_set);
+
+        show_time_ = true;
+        recv_to_file_ = false;
+        display_as_hex_ = true;
+        stop_display_ = false;
     }
 
     RecvEareSetWidget::~RecvEareSetWidget()
+    {
+
+    }
+
+    /* recv_to_file_set
+    * @brief: 槽函数，将接收的数据转向输入到文件中
+    * @param state[in]: checkbox 的状态 
+    * @return: null
+    */
+    void RecvEareSetWidget::recv_to_file_set(int state)
+    {
+
+    }
+
+    /* show_time_set
+    * @brief: 槽函数，显示接收的时间
+    * @param state[in]: checkbox 的状态 
+    * @return: null
+    */
+    void RecvEareSetWidget::show_time_set(int state)
+    {
+
+    }
+
+    /* display_as_hex_set
+    * @brief: 槽函数，以十六进制显示
+    * @param state[in]: checkbox 的状态 
+    * @return: null
+    */
+    void RecvEareSetWidget::display_as_hex_set(int state)
+    {
+
+    }
+
+    /* stop_display_set
+    * @brief: 槽函数，暂停显示接收的数据
+    * @param state[in]: checkbox 的状态 
+    * @return: null
+    */
+    void RecvEareSetWidget::stop_display_set(int state)
     {
 
     }

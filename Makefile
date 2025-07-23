@@ -1,5 +1,5 @@
 # 默认生成模式
-MODE ?= release
+MODE ?= debug
 
 BUILD_DIR := build
 

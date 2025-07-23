@@ -64,8 +64,10 @@ class NetSetWidget : public QWidget
 
 };
 
+class NetDataRecvWidget;
 class RecvEareSetWidget : public QWidget 
-{
+{   
+    friend class NetDataRecvWidget;
     public:
         RecvEareSetWidget(QWidget* parent = nullptr);
         virtual ~RecvEareSetWidget();
@@ -79,6 +81,18 @@ class RecvEareSetWidget : public QWidget
 
         QLabel* save_data_;
         QLabel* clean_display_;
+
+    private slots:
+        void recv_to_file_set(int state);
+        void show_time_set(int state);
+        void display_as_hex_set(int state);
+        void stop_display_set(int state);
+
+    private:
+        bool show_time_;
+        bool recv_to_file_;
+        bool display_as_hex_;
+        bool stop_display_;
 };
 
 class SendEareSetWidget : public QWidget
